@@ -912,7 +912,7 @@ def test_list_runtimes_pager(transport_name: str = "grpc"):
 
         assert pager._metadata == metadata
 
-        results = [i for i in pager]
+        results = list(pager)
         assert len(results) == 6
         assert all(isinstance(i, runtime.Runtime) for i in results)
 
@@ -3022,7 +3022,7 @@ def test_managed_notebook_service_grpc_transport_channel():
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
-    assert transport._ssl_channel_credentials == None
+    assert transport._ssl_channel_credentials is None
 
 
 def test_managed_notebook_service_grpc_asyncio_transport_channel():
@@ -3034,7 +3034,7 @@ def test_managed_notebook_service_grpc_asyncio_transport_channel():
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
-    assert transport._ssl_channel_credentials == None
+    assert transport._ssl_channel_credentials is None
 
 
 # Remove this test when deprecated arguments (api_mtls_endpoint, client_cert_source) are

@@ -67,7 +67,7 @@ class NotebookServiceClientMeta(type):
     _transport_registry["grpc"] = NotebookServiceGrpcTransport
     _transport_registry["grpc_asyncio"] = NotebookServiceGrpcAsyncIOTransport
 
-    def get_transport_class(cls, label: str = None,) -> Type[NotebookServiceTransport]:
+    def get_transport_class(self, label: str = None) -> Type[NotebookServiceTransport]:
         """Returns an appropriate transport class.
 
         Args:
@@ -79,11 +79,11 @@ class NotebookServiceClientMeta(type):
         """
         # If a specific transport is requested, return that one.
         if label:
-            return cls._transport_registry[label]
+            return self._transport_registry[label]
 
         # No transport is requested; return the default (that is, the first one
         # in the dictionary).
-        return next(iter(cls._transport_registry.values()))
+        return next(iter(self._transport_registry.values()))
 
 
 class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
@@ -639,11 +639,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def create_instance(
         self,
@@ -1819,11 +1816,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             ),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def get_instance_health(
         self,
@@ -1909,11 +1903,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def upgrade_instance(
         self,
@@ -2359,11 +2350,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def create_environment(
         self,
@@ -2795,11 +2783,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def delete_schedule(
         self,
@@ -3309,11 +3294,8 @@ class NotebookServiceClient(metaclass=NotebookServiceClientMeta):
             gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
         )
 
-        # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
-
         # Done; return the response.
-        return response
+        return rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
     def delete_execution(
         self,

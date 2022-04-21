@@ -130,26 +130,24 @@ class NotebookServiceGrpcTransport(NotebookServiceTransport):
             self._grpc_channel = channel
             self._ssl_channel_credentials = None
 
-        else:
-            if api_mtls_endpoint:
-                host = api_mtls_endpoint
+        elif api_mtls_endpoint:
+            host = api_mtls_endpoint
 
-                # Create SSL credentials with client_cert_source or application
-                # default SSL credentials.
-                if client_cert_source:
-                    cert, key = client_cert_source()
-                    self._ssl_channel_credentials = grpc.ssl_channel_credentials(
-                        certificate_chain=cert, private_key=key
-                    )
-                else:
-                    self._ssl_channel_credentials = SslCredentials().ssl_credentials
-
+            # Create SSL credentials with client_cert_source or application
+            # default SSL credentials.
+            if client_cert_source:
+                cert, key = client_cert_source()
+                self._ssl_channel_credentials = grpc.ssl_channel_credentials(
+                    certificate_chain=cert, private_key=key
+                )
             else:
-                if client_cert_source_for_mtls and not ssl_channel_credentials:
-                    cert, key = client_cert_source_for_mtls()
-                    self._ssl_channel_credentials = grpc.ssl_channel_credentials(
-                        certificate_chain=cert, private_key=key
-                    )
+                self._ssl_channel_credentials = SslCredentials().ssl_credentials
+
+        elif client_cert_source_for_mtls and not ssl_channel_credentials:
+            cert, key = client_cert_source_for_mtls()
+            self._ssl_channel_credentials = grpc.ssl_channel_credentials(
+                certificate_chain=cert, private_key=key
+            )
 
         # The base transport sets the host, credentials and scopes
         super().__init__(

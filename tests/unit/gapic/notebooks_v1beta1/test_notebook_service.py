@@ -824,7 +824,7 @@ def test_list_instances_pager(transport_name: str = "grpc"):
 
         assert pager._metadata == metadata
 
-        results = [i for i in pager]
+        results = list(pager)
         assert len(results) == 6
         assert all(isinstance(i, instance.Instance) for i in results)
 
@@ -3039,8 +3039,8 @@ def test_list_environments_pager(transport_name: str = "grpc"):
 
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(
-        type(client.transport.list_environments), "__call__"
-    ) as call:
+            type(client.transport.list_environments), "__call__"
+        ) as call:
         # Set the response to a series of pages.
         call.side_effect = (
             service.ListEnvironmentsResponse(
@@ -3069,7 +3069,7 @@ def test_list_environments_pager(transport_name: str = "grpc"):
 
         assert pager._metadata == metadata
 
-        results = [i for i in pager]
+        results = list(pager)
         assert len(results) == 6
         assert all(isinstance(i, environment.Environment) for i in results)
 
@@ -3925,7 +3925,7 @@ def test_notebook_service_grpc_transport_channel():
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
-    assert transport._ssl_channel_credentials == None
+    assert transport._ssl_channel_credentials is None
 
 
 def test_notebook_service_grpc_asyncio_transport_channel():
@@ -3937,7 +3937,7 @@ def test_notebook_service_grpc_asyncio_transport_channel():
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
-    assert transport._ssl_channel_credentials == None
+    assert transport._ssl_channel_credentials is None
 
 
 # Remove this test when deprecated arguments (api_mtls_endpoint, client_cert_source) are

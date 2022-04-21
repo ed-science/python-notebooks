@@ -107,17 +107,17 @@ class notebooksCallTransformer(cst.CSTTransformer):
                            for a, ctrl in zip(ctrl_args, self.CTRL_PARAMS))
 
         request_arg = cst.Arg(
-            value=cst.Dict([
-                cst.DictElement(
-                    cst.SimpleString("'{}'".format(name)),
-cst.Element(value=arg.value)
-                )
-                # Note: the args + kwargs looks silly, but keep in mind that
-                # the control parameters had to be stripped out, and that
-                # those could have been passed positionally or by keyword.
-                for name, arg in zip(kword_params, args + kwargs)]),
-            keyword=cst.Name("request")
+            value=cst.Dict(
+                [
+                    cst.DictElement(
+                        cst.SimpleString(f"'{name}'"), cst.Element(value=arg.value)
+                    )
+                    for name, arg in zip(kword_params, args + kwargs)
+                ]
+            ),
+            keyword=cst.Name("request"),
         )
+
 
         return updated.with_changes(
             args=[request_arg] + ctrl_kwargs
